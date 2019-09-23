@@ -42,7 +42,7 @@ class SecondViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: tabBarController?.tabBar.tintColor ?? UIColor.gray]
+        navigationController?.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: tabBarController?.tabBar.tintColor ?? UIColor.gray])
         navigationController?.navigationBar.barTintColor = tabBarController?.tabBar.barTintColor ?? UIColor.lightGray
         sampleOneImageView.image = #imageLiteral(resourceName: "SampleImageOne")
         sampleTwoImageView.image = #imageLiteral(resourceName: "SampleImageTwo")
@@ -54,7 +54,7 @@ class SecondViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: tabBarController?.tabBar.tintColor ?? UIColor.gray]
+        navigationController?.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: tabBarController?.tabBar.tintColor ?? UIColor.gray])
         navigationController?.navigationBar.barTintColor = tabBarController?.tabBar.barTintColor ?? UIColor.lightGray
     }
     
@@ -97,3 +97,9 @@ class SecondViewController: UITableViewController {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
